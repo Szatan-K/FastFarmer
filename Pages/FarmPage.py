@@ -10,15 +10,18 @@ class FarmPage(Page):
 
     def is_at(self):
         try:
-            pass
+            inner_quarter_d = Constant.Locator.inner_quarter
+            inner_quarter_we = self.driver.find_element(inner_quarter_d['by'], inner_quarter_d['value'])
+            WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(inner_quarter_we))
+            return True
         except:
-            pass
+            return False
     
     def close_news_main(self):
         close_newsbox_d = Constant.Locator.newsbox_close_button_1
         try:
             close_newsbox_we = self.driver.find_element(close_newsbox_d['by'], close_newsbox_d['value'])
-            WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(close_newsbox_we))
+            WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(close_newsbox_we))
             close_newsbox_we.click()
             print('newsbox closed')
         except (selenium.common.exceptions.TimeoutException, selenium.common.exceptions.NoSuchElementException):
@@ -44,10 +47,10 @@ class FarmPage(Page):
 
     def close_daily_login(self):
         claim_daily_button_d = Constant.Locator.daily_bonus_claim_button
-        close_daily_button_d = Constant.Locator.daily_bonus_close_button
+        #close_daily_button_d = Constant.Locator.daily_bonus_close_button
         try:
             claim_daily_button_we = self.driver.find_element(claim_daily_button_d['by'], claim_daily_button_d['value'])
-            WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(claim_daily_button_we))
+            WebDriverWait(self.driver, 3).until(EC.element_to_be_clickable(claim_daily_button_we))
             claim_daily_button_we.click()
             print('daily bonus claimed')
         except (selenium.common.exceptions.TimeoutException, selenium.common.exceptions.NoSuchElementException, selenium.common.exceptions.ElementClickInterceptedException):
@@ -60,8 +63,12 @@ class FarmPage(Page):
         self.close_daily_login()
 
     def open_farm(self, index):
-        farm_to_open = 0
-        
+        farm_pos_d = Constant.Locator.farm_pos
+        try:
+            farm_pos_we = self.driver.find_element(farm_pos_d['by'], farm_pos_d['value'] + str(index))
+            farm_pos_we.click()
+        except:
+            print(f'there was an error trying to click farm with index {index}')
 
     def get_areas(farm_page) -> list[tuple]:
         areas = []

@@ -19,28 +19,31 @@ class Locator:
     daily_bonus_claim_button = {'by': By.ID, 'value': 'loginbonus_button'} # not sure
     daily_bonus_close_button = {'by': By.CSS_SELECTOR, 'value': '#loginbonus .mini_close link'}
 
-    farm_pos = {'by': By.ID, 'value': 'farm1_pos'} #need to add a number in range 1-6 at the end of the value
-    farm_pos_name = {'by': By.XPATH, 'value': '//*[@id="farm1_pos1_tt"]/div'}
-    farm_pos_name1 = {'by': By.CSS_SELECTOR, 'value': 'div'}
     #cookies
     cookies_accept_button = {'by': By.CLASS_NAME, 'value': 'cookiemon-btn-accept'}
     
     close_error_login_button = {'by': By.ID, 'value': 'errorback'}
 
     #FarmPage ------------------------------------------------------------------------------------------------------
-    inner_quarter = {'by': By.CSS_SELECTOR, 'value': 'farm_inner_headquarter'}    
+    farm_pos = {'by': By.ID, 'value': 'farm1_pos'} #need to add a number in range 1-6 at the end of the value
+    farm_pos_name = {'by': By.XPATH, 'value': '//*[@id="farm1_pos1_tt"]/div'}
+    farm_pos_name1 = {'by': By.CSS_SELECTOR, 'value': 'div'}
+    inner_quarter = {'by': By.ID, 'value': 'farm_inner_headquarter'}    
+    
+    farm_field = {'by': By.ID, 'value':'field'} #need to add a number in range 1-120 at the end of the value
+    rack_item_name = {'by': By.CSS_SELECTOR, 'value': '#rackitem1_tt > div.headline'} #have to divide it into 2 parts
+    
+    farm_close_button = {'by': By.ID, 'value': 'gardencancel'}
 
-
+    rack_item17_test = {'by': By.ID, 'value': 'rackitem17'}
     pass
 
 class Price:
       pass
 
-
 class Attribute_HTML:
     text_xpath = 'innerHTML'
     text_css_selector = 'textContent'
-
 
 class Message:
     field_3_locked = 'Zwolnić miejsce pod zabudowę?1.000,00 ft'

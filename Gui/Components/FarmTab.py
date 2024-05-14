@@ -9,19 +9,17 @@ class FarmTab(ctk.CTkFrame):
         self.bot = bot
         self.farm_preview = FarmTabAreas(self, self.bot)                                                               #name to be changed
         self.farm_preview.configure(width=700, fg_color='cyan')
-        self.control_panel = FarmTabPanel(self, bot=self.bot, farmTab=self)                                                         #name to be changed
-        
+        self.control_panel = FarmTabPanel(self, bot=self.bot, farmTab=self)
+
         self.farm_preview.pack_propagate(False)
         self.farm_preview.grid_areas(self.farm_preview.areas)
         self.farm_preview.grid_set_weight()
         self.farm_preview.pack(expand=True, fill=ctk.BOTH)
         self.control_panel.pack(expand=True, fill=ctk.BOTH)
 
-    def plant(self):
-        farm_indexes = self.farm_preview.check_checkboxes()
-        for index in farm_indexes:
-            pass
-
+    def execute_plant(self):
+        indexes = self.farm_preview.check_checkboxes()
+        self.bot.plant(indexes)
 
 class FarmTabPanel(ctk.CTkFrame):
     def __init__(self, master, bot, farmTab, **kwargs):
@@ -30,11 +28,17 @@ class FarmTabPanel(ctk.CTkFrame):
         self.farmTab = farmTab
         self.load_farm_button = ctk.CTkButton(self, text='Load Farm', command=farmTab.farm_preview.load_areas)
         
-        self.plant_button = ctk.CTkButton(self, text='Plant', command = farmTab.plant)
+        self.plant_button = ctk.CTkButton(self, text='Plant', command = lambda: farmTab.execute_plant())
 
+        #self.check_is_at = ctk.CTkButton(self, text='check it', command = lambda: self.bot.plant(self.farmTab.indexes))
+
+        
 
         self.load_farm_button.grid(row=0, column=0)
         self.plant_button.grid(row=0, column=1)
+        #self.check_is_at.grid(row=0, column=2)
+    
+
 
 class FarmTabImage(ctk.CTkFrame):
     def __init__(self, master, name, image, **kwargs):
@@ -66,8 +70,9 @@ class FarmTabAreas(ctk.CTkFrame):
     def check_checkboxes(self) -> list[int]:
         indexes = []
         for i in range(len(self.areas)):
-            if isinstance(self.areas[i].description, ctk.CTkCheckBox): 
-                indexes.append(i)
+            if isinstance(self.areas[i].description, ctk.CTkCheckBox):
+                if self.areas[i].description.get():
+                    indexes.append(i+1)
         return indexes
 
     def load_areas(self):
@@ -75,6 +80,7 @@ class FarmTabAreas(ctk.CTkFrame):
             self.bot.page = FarmPage
         areas = FarmPage.get_areas(self.bot.page)
         created_areas = self.create_areas(areas)
+        self.areas = created_areas
         self.grid_areas(created_areas)
 
     def grid_areas(self, areas: list[FarmTabImage]):

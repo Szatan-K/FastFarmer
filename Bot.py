@@ -39,15 +39,24 @@ class Bot:
                         self.page.reclick(farm_field_we, i)
                         continue
                 time.sleep(2)
-                farm_close_button_d = Constant.Locator.farm_close_button
-                try:
-                    farm_close_button_we = self.driver.find_element(farm_close_button_d['by'], farm_close_button_d['value'])
-                    WebDriverWait(self.driver, 1).until(EC.element_to_be_clickable(farm_close_button_we))
-                    farm_close_button_we.click()
-                except:
-                    print('nie poszlo sadeg')
+                self.page.close_farm()
             except Exception as e :
                 print(f'There was an error: {e}')
+
+    def gather_plants(self, farm_indexes: list[int]):
+        for index in farm_indexes:
+            try:
+                self.page.open_farm(index)
+                gather_all_button_d = Constant.Locator.gather_all_button
+                gather_all_button_we = self.driver.find_element(gather_all_button_d['by'], gather_all_button_d['value'])
+                gather_all_button_we.click()
+                time.sleep(1)
+                self.page.close_gather_box_dialog()
+                time.sleep(1)
+                self.page.close_farm()
+            except Exception as e:
+                print(f'error trying to gather plants: {e}')
+        pass
 
     def get_login_data(self, login_entry: ctk.CTkEntry, password_entry: ctk.CTkEntry, server_cmbbox: ctk.CTkComboBox):
         self.user.login = login_entry.get()

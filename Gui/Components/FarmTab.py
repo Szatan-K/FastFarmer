@@ -21,6 +21,11 @@ class FarmTab(ctk.CTkFrame):
         indexes = self.farm_preview.check_checkboxes()
         self.bot.plant(indexes)
 
+    def execute_gather_all(self):
+        # to be changed, so that field with name 'pole' are taken
+        indexes = self.farm_preview.check_checkboxes()
+        self.bot.gather_plants(indexes)
+
 class FarmTabPanel(ctk.CTkFrame):
     def __init__(self, master, bot, farmTab, **kwargs):
         super().__init__(master, **kwargs)
@@ -28,18 +33,16 @@ class FarmTabPanel(ctk.CTkFrame):
         self.farmTab = farmTab
         self.load_farm_button = ctk.CTkButton(self, text='Load Farm', command=farmTab.farm_preview.load_areas)
         
-        self.plant_button = ctk.CTkButton(self, text='Plant', command = lambda: farmTab.execute_plant())
+        self.plant_button = ctk.CTkButton(self, text='Plant', command = farmTab.execute_plant)
 
+        self.gather_button = ctk.CTkButton(self, text='Gather plants', command = farmTab.execute_gather_all)
         #self.check_is_at = ctk.CTkButton(self, text='check it', command = lambda: self.bot.plant(self.farmTab.indexes))
-
-        
 
         self.load_farm_button.grid(row=0, column=0)
         self.plant_button.grid(row=0, column=1)
+        self.gather_button.grid(row=0, column=2)
         #self.check_is_at.grid(row=0, column=2)
     
-
-
 class FarmTabImage(ctk.CTkFrame):
     def __init__(self, master, name, image, **kwargs):
         super().__init__(master, **kwargs)

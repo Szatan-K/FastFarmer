@@ -11,6 +11,3 @@ class Background(ctk.CTkCanvas):
         super().configure(width=self.resized_img.width, height=self.resized_img.width)
         self.configure(width=self.resized_img.width, height=self.resized_img.height, borderwidth=0, highlightthickness=0)
         self.create_image(0,0, image=self.photo, anchor=ctk.NW)
-
-
-        

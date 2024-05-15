@@ -36,6 +36,10 @@ class Locator:
     farm_close_button = {'by': By.ID, 'value': 'gardencancel'}
 
     rack_item17_test = {'by': By.ID, 'value': 'rackitem17'}
+
+    gather_all_button = {'by': By.ID, 'value': 'cropall'}
+    close_gather_box_button = {'by': By.ID, 'value': 'globalbox_close'}
+
     pass
 
 class Price:

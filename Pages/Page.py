@@ -28,7 +28,7 @@ class Page:
         except selenium.common.exceptions.TimeoutException:
             print("Cookies didn't show up")
 
-    def reclick(self, web_element, i):
+    def reclick(self, web_element):
         clicked = False
         attempt = 0
         while attempt < 100 and not clicked:

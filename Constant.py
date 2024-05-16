@@ -37,6 +37,8 @@ class Locator:
 
     rack_item17_test = {'by': By.ID, 'value': 'rackitem17'}
 
+    #from toolbar
+    water_crop_button = {'by': By.ID, 'value': 'giessen'}
     gather_all_button = {'by': By.ID, 'value': 'cropall'}
     close_gather_box_button = {'by': By.ID, 'value': 'globalbox_close'}
 

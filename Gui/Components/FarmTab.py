@@ -1,7 +1,9 @@
 from PIL import Image, ImageTk
 from Pages.FarmPage import FarmPage
-from Constant import AREAS
+import Constant
 import customtkinter as ctk
+import threading
+
 
 class FarmTab(ctk.CTkFrame):
     def __init__(self, master, bot, **kwargs):
@@ -36,12 +38,13 @@ class FarmTabPanel(ctk.CTkFrame):
         self.plant_button = ctk.CTkButton(self, text='Plant', command = farmTab.execute_plant)
 
         self.gather_button = ctk.CTkButton(self, text='Gather plants', command = farmTab.execute_gather_all)
-        #self.check_is_at = ctk.CTkButton(self, text='check it', command = lambda: self.bot.plant(self.farmTab.indexes))
 
-        self.load_farm_button.grid(row=0, column=0)
-        self.plant_button.grid(row=0, column=1)
-        self.gather_button.grid(row=0, column=2)
-        #self.check_is_at.grid(row=0, column=2)
+        self.combobox_plant = ctk.CTkComboBox(self, values = [key for key in Constant.Plant.all_plants.keys()], width=150)
+
+        self.load_farm_button.grid(row=0, column=0, rowspan=2)
+        self.plant_button.grid(row=0, column=1,)
+        self.combobox_plant.grid(row=1, column=1)
+        self.gather_button.grid(row=0, column=2, rowspan=2)
     
 class FarmTabImage(ctk.CTkFrame):
     def __init__(self, master, name, image, **kwargs):
@@ -109,6 +112,6 @@ class FarmTabAreas(ctk.CTkFrame):
     def initialize_areas(self) -> list[FarmTabImage]: # add initializing from the credentials or another file, add saving the areas
         created_areas = []
         for i in range(6):
-            area = FarmTabImage(self, None, AREAS[None])
+            area = FarmTabImage(self, None, Constant.AREAS[None])
             created_areas.append(area)
         return created_areas

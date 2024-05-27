@@ -33,13 +33,10 @@ class Page:
         attempt = 0
         while attempt < 100 and not clicked:
             try:
-                print('reclick invoked')
                 web_element.click()
                 clicked = True
-                continue
             except selenium.common.exceptions.StaleElementReferenceException:
                 attempt += 1
-            continue
         if not clicked:
             print('critical error trying to reclick')
             

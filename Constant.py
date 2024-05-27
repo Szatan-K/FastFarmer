@@ -44,8 +44,43 @@ class Locator:
 
     pass
 
-class Price:
-      pass
+class Plant:
+    all_plants = {
+        'Marchewki': {'price': 0.16, 'size': 1},
+        'Zboże': {'price': 0.50, 'size': 2},
+        'Ogórki': {'price': 0.52, 'size': 1},
+        'Truskawki': {'price': 1.44, 'size': 1},
+        'Kukurydza': {'price': 1.10, 'size': 4},
+        'Rzodkiewki': {'price': 1.02, 'size': 1},
+        'Pomidory': {'price': 1.96, 'size': 1},
+        'Cebule': {'price': 2.28, 'size': 1},
+        'Szpinak': {'price': 3.80, 'size': 1},
+        'Koniczyna': {'price': 1.34, 'size': 2},
+        'Rzepak': {'price': 2.75, 'size': 4},
+        'Kalafiory': {'price': 3.69, 'size': 1},
+        'Buraki pastewne': {'price': 3.95, 'size': 4},
+        'Zioła': {'price': 8.05, 'size': 4},
+        'Ziemniaki': {'price': 4.38, 'size': 1},
+        'Słonecznik': {'price': 17.80, 'size': 4},          #have to check the name
+        'Bławatek': {'price': 18.50, 'size': 4},            #
+        'Szparagi': {'price': 12.40, 'size': 2},            #
+        'Cukinia': {'price': 3.49, 'size': 1},              #
+        'Jagoda': {'price': 5.19, 'size': 1},               #
+        'Malina': {'price': 8.15, 'size': 1},               #
+        'Porzeczka': {'price': 6.00, 'size': 1},            #
+        'Jeżyna': {'price': 15.63, 'size': 1},              #
+        'Mirabelka': {'price': 16.88, 'size': 4},           #
+        'Jabłko': {'price': 37.50, 'size': 4},              #
+        'Dynia': {'price': 3.90, 'size': 1},                #
+        'Gruszka': {'price': 52.44, 'size': 4},             #
+        'Wiśnia': {'price': 51.75, 'size': 4},              #
+        'Śliwka': {'price': 60.25, 'size': 4},              #
+        'Orzech włoski': {'price': 58.13, 'size': 4},       #
+        'Oliwka': {'price': 66.19, 'size': 4},              #
+        'Czerwona kapusta': {'price': 70.70, 'size': 4},    #
+        'Stokrotki': {'price': 3.72, 'size': 2},        
+    }
+    pass
 
 class Attribute_HTML:
     text_xpath = 'innerHTML'

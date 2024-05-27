@@ -96,7 +96,6 @@ class FarmPage(Page):
                 pos_we_id = pos_we.get_attribute('id')
                 pos_name = pos_we.find_element(pos_name_d['by'], '#' + pos_we_id + '_tt ' + pos_name_d['value'])
                 field_name = pos_name.get_attribute(Constant.Attribute_HTML.text_css_selector)
-                print(field_name)
                 image_path = Constant.AREAS[field_name]
                 if field_name in Constant.Message.all_locked:
                     field_name = Constant.LOCKED

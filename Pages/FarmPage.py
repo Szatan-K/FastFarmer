@@ -85,6 +85,23 @@ class FarmPage(Page):
         self.close_news_main()
         self.close_news_mini()
         self.close_daily_login()
+ 
+    def get_racks_items(farm_page) -> dict:
+        rack_d = Constant.Locator.all_items
+        rack_wes = farm_page.driver.find_elements(rack_d['by'], rack_d['value'])
+        items = {}
+        for element in rack_wes:
+            #item's id
+            items_id = element.get_attribute('id')
+
+            #item's name
+            item_d = Constant.Locator.items_name
+            item_we = element.find_element(item_d['by'], item_d['value'])
+            items_name = item_we.get_attribute('textContent')
+            
+            items[items_name] = items_id
+
+        return items
 
     def get_areas(farm_page) -> list[tuple]:
         areas = []

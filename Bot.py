@@ -106,6 +106,7 @@ class Bot:
                 self.user.save_credentials(self.user.login, self.user.password, self.user.server)
             
             self.page = FarmPage(self.driver, self.user)
-            self.page.close_news_all()
-            self.page.accept_cookies()
             self.controller.myApp.set_to_game_window()
+            self.page.accept_cookies()
+            if not self.user.check_if_logged_today():
+                self.page.close_news_all()

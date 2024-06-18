@@ -42,6 +42,10 @@ class Locator:
     gather_all_button = {'by': By.ID, 'value': 'cropall'}
     close_gather_box_button = {'by': By.ID, 'value': 'globalbox_close'}
 
+    #plants
+    all_items = {'by': By.CSS_SELECTOR, 'value': '#rackItems .sack'}
+    items_name = {'by': By.CLASS_NAME, 'value': 'headline'} # used on a webElement
+
     pass
 
 class Plant:

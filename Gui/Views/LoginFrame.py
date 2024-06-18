@@ -14,6 +14,7 @@ class LoginFrame(ctk.CTkFrame):
         self.checkbox_remember_me = ctk.CTkCheckBox(self, text='Remember me')
         self.entry_login = ctk.CTkEntry(self, placeholder_text='Login')
         self.entry_password = ctk.CTkEntry(self, placeholder_text='Password', show='*')
+        self.logged_at = None
         
         for child in self.winfo_children():
             child.grid_configure(padx=10, pady=10)      
@@ -31,3 +32,4 @@ class LoginFrame(ctk.CTkFrame):
             self.entry_login.insert(0, creds['login'])
             self.entry_password.insert(0, creds['password'])
             self.combobox_server.set(creds['server'])
+            self.bot.user.logged_at = creds['logged_at']

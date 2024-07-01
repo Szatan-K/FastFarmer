@@ -23,39 +23,52 @@ class Bot:
             print('naura')
             return False
 
-    def plant(self, indexes: list[int]):
+    def plant(self, indexes: list[int], chosen_crop):
+        
         for index in indexes:
+            is_crop_chosen = False
             try:
-                self.page.open_farm(index)
-                time.sleep(1)
-                self.plant_plants()
-                self.water_plants()
-                self.page.close_farm()
-            except Exception as e :
-                print(f'There was an error: {e}')
-
-    def plant_plants(self):
-        is_crop_chosen = False
-        try:
-            rack_item_d = Constant.Locator.rack_item17_test
-            rack_item_we = self.driver.find_element(rack_item_d['by'], rack_item_d['value'])
-            rack_item_we.click()
-            is_crop_chosen = True
-            time.sleep(1)
-        except Exception as e:
-            print(f'error choosing crop to plant: {e}')
-        if is_crop_chosen:
-            for i in range(120):
+                is_crop_chosen = self.click_crop_to_plant(chosen_crop)
+                
+            except Exception as e:
+                msgbox.showerror('Error', "Could not choose the crop to plant")
+            if is_crop_chosen:
+                crop_size = Constant.Plant.all_plants[chosen_crop]['size']
                 try:
-                    farm_field_d = Constant.Locator.farm_field
-                    farm_field_we = self.driver.find_element(farm_field_d['by'], farm_field_d['value'] + str(i+1))
-                    farm_field_we.click()
-                except:
-                    self.page.reclick(farm_field_we)
-                    continue
+                    self.page.open_farm(index)
+                    time.sleep(1)
+                    self.plant_plants(crop_size)
+                    self.water_plants(crop_size)
+                    self.page.close_farm()
+                except Exception as e :
+                    print(f'There was an error: {e}')
+    def click_crop_to_plant(self, chosen_crop):
+        is_crop_chosen = False
+        items = self.page.get_racks_items()
+        try:
+            crop_item_d = {'by': Constant.By.ID, 'value': items[chosen_crop]}
+            crop_item_we = self.driver.find_element(crop_item_d['by'], crop_item_d['value'])
+            crop_item_we.click()
             time.sleep(1)
+            is_crop_chosen = True
+        except Exception as e:
+            print(f'Error choosing a crop to plant: {e}')
+        return is_crop_chosen
 
-    def water_plants(self):
+    def plant_plants(self, crop_size):
+        i = 0
+        while i < 120:
+            try:
+                farm_field_d = Constant.Locator.farm_field
+                farm_field_we = self.driver.find_element(farm_field_d['by'], farm_field_d['value'] + str(i+1))
+                farm_field_we.click()
+            except:
+                self.page.reclick(farm_field_we)
+                #continue
+            i += crop_size
+        time.sleep(1)
+
+    def water_plants(self, crop_size):
         watercan_clicked = False
         try:
             water_crop_button_d = Constant.Locator.water_crop_button
@@ -65,13 +78,15 @@ class Bot:
         except Exception as e:
             print(f'error trying click watercan: {e}')
         if watercan_clicked:
-            for i in range(120):
+            i = 0
+            while i < 120:
                 try:
                     farm_field_d = Constant.Locator.farm_field
                     farm_field_we = self.driver.find_element(farm_field_d['by'], farm_field_d['value'] + str(i+1))
                     farm_field_we.click()
                 except:
                     self.page.reclick(farm_field_we)
+                i += crop_size
             time.sleep(1)
 
     def gather_plants(self, farm_indexes: list[int]):

@@ -107,6 +107,8 @@ class MyImage:
     coop_lvl2 = 'Images/Coop_lvl2.png'
     barn_lvl2 = 'Images/Barn_lvl2.png'
 
+BY_ID = By.ID
+
 AREAS = {'Pole': MyImage.field,
          None: MyImage.blank,
          Message.field_3_locked: MyImage.locked_3,

@@ -2,6 +2,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from Pages.Page import Page
+from tkinter import messagebox as msgbox
 import Constant
 
 class LoginPage(Page):
@@ -36,7 +37,7 @@ class LoginPage(Page):
             login_error_button_d = Constant.Locator.close_error_login_button
             login_error_button_we = self.driver.find_element(login_error_button_d['by'], login_error_button_d['value'])
             WebDriverWait(self.driver, 2).until(EC.element_to_be_clickable(login_error_button_we))
-            print('zlapalem error logina')
+            msgbox.showerror('Error','Login or password incorrect')
             return False
         except:
             print("dane logowania poprawne")

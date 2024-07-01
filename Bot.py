@@ -2,6 +2,7 @@ from Pages.LoginPage import LoginPage
 from Pages.FarmPage import FarmPage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from tkinter import messagebox as msgbox
 import customtkinter as ctk
 import Constant
 import time
@@ -97,16 +98,19 @@ class Bot:
         self.page = LoginPage(self.driver, self.user)                      # idk if it's good to load page every time u click a login button
         self.page.navigate()                                               # the problem is that i open a login page after clicking it, maybe should load login page on the start of an app, or change login button to 'try again' or smth
         self.get_login_data(login_entry, password_entry, server_cmbbox)
-        self.page.input_login()
-        self.page.input_password()
-        self.page.choose_server()
-        self.page.login_submit()
-        if self.page.login_error_check():
-            if remember_me.get():
-                self.user.save_credentials(self.user.login, self.user.password, self.user.server)
-            
-            self.page = FarmPage(self.driver, self.user)
-            self.controller.myApp.set_to_game_window()
-            self.page.accept_cookies()
-            if not self.user.check_if_logged_today():
-                self.page.close_news_all()
+        if self.user.login == '' or self.user.password == '':
+            msgbox.showerror('Error','Login and password fields can not be empty')
+        else:
+            self.page.input_login()
+            self.page.input_password()
+            self.page.choose_server()
+            self.page.login_submit()
+            if self.page.login_error_check():
+                if remember_me.get():
+                    self.user.save_credentials(self.user.login, self.user.password, self.user.server)
+                
+                self.page = FarmPage(self.driver, self.user)
+                self.controller.myApp.set_to_game_window()
+                self.page.accept_cookies()
+                if not self.user.check_if_logged_today():
+                    self.page.close_news_all()

@@ -30,8 +30,8 @@ class FarmTab(ctk.CTkFrame):
 
     def execute_get_racks_items(self):
         print(type(self.bot.page))
-        self.bot.page.get_racks_items()
-
+        print(self.bot.page.get_racks_items())
+        
 class FarmTabPanel(ctk.CTkFrame):
     def __init__(self, master, bot, farmTab, **kwargs):
         super().__init__(master, **kwargs)
